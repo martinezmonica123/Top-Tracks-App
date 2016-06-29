@@ -11,6 +11,7 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var path = require('path');
 
 var client_id = '43087a8269cb4610af69a9878aa2e798'; // Your client id
 var client_secret = '0fd64746a3d14cee9158182a24de3ca8'; // Your secret
@@ -35,7 +36,7 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, 'public')))
    .use(cookieParser());
 
 app.get('/login', function(req, res) {
@@ -99,7 +100,7 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          
+          // ....?
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -142,5 +143,4 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 3000');
 module.exports = app;

@@ -1,6 +1,4 @@
-body {
-    padding: 20px;
-}
+
 #search-form, .form-control {
     margin-bottom: 20px;
 }
@@ -25,4 +23,8 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 500px;
+}
+
+#spotify {
+    background: #2ebd59;
 }

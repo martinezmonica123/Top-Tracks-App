@@ -14,9 +14,6 @@ $(document).ready(function() {
     return hashParams;
   }
 
-  var userProfileSource = document.getElementById('user-profile-template').innerHTML,
-      userProfileTemplate = Handlebars.compile(userProfileSource),
-      userProfilePlaceholder = document.getElementById('user-profile');
   
   var templateSource = document.getElementById('results-template').innerHTML,
       template = Handlebars.compile(templateSource),
@@ -34,22 +31,9 @@ $(document).ready(function() {
     alert('There was an error during the authentication');
   } else {
     if (access_token) {
-
-      $.ajax({
-          url: 'https://api.spotify.com/v1/me',
-          headers: {
-            'Authorization': 'Bearer ' + access_token
-          },
-          success: function(response) {
-            userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
-            $('#login').hide();
-            $('#loggedin').show();
-          }
-      });
         
       $.ajax({
-          url: 'https://api.spotify.com/v1/me/top/tracks',
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=12',
           headers: {
             'Authorization': 'Bearer ' + access_token
           },
@@ -60,7 +44,8 @@ $(document).ready(function() {
     } else {
         // render initial screen
         $('#login').show();
-        $('#loggedin').hide();
+        $('#results-intro').hide();
+        $('#results').hide();
     }
 
   /*  document.getElementById('obtain-new-token').addEventListener('click', function() {
