@@ -53,7 +53,7 @@ $(document).ready(function() {
     } else {
         if (access_token) {
             $.ajax({
-                url: 'https://api.spotify.com/v1/me/top/tracks?limit=12',
+                url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=12',
                 headers: {
                 'Authorization': 'Bearer ' + access_token
                 },
