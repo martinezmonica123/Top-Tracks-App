@@ -28,3 +28,13 @@
 #spotify {
     background: #2ebd59;
 }
+
+.box {   
+    border-radius: 3px;
+    padding: 30px;
+    padding-bottom: 20px;
+    width: 50%;
+    display: inline-block;
+    background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+    background: rgba(204, 204, 204, 0.3);
+}
