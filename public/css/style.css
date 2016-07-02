@@ -8,12 +8,15 @@
     display: inline-block;
     background-size: cover;
 }
+
+.cover.playing {
+    border: 5px solid #2ebd59;
+}
+
 .cover:hover {
     cursor: pointer;
 }
-.cover.playing {
-    border: 5px solid #e45343;
-}
+
 #login, #loggedin {
     display: none;
 }
