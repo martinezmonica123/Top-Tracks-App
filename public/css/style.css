@@ -39,5 +39,5 @@
     width: 50%;
     display: inline-block;
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
-    background: rgba(204, 204, 204, 0.3);
+    background: rgba(204, 204, 204, 0.6);
 }
