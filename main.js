@@ -15,7 +15,7 @@ var path = require('path');
 
 var client_id = '43087a8269cb4610af69a9878aa2e798'; // Your client id
 var client_secret = '0fd64746a3d14cee9158182a24de3ca8'; // Your secret
-var redirect_uri = 'http://toptracksapp-dev.us-west-2.elasticbeanstalk.com/callback/'; // Your redirect uri
+var redirect_uri = 'https://top-tracks.herokuapp.com/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
