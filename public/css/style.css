@@ -41,3 +41,7 @@
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
     background: rgba(204, 204, 204, 0.6);
 }
+
+img {
+    max-width: 100%;
+}
