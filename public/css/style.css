@@ -1,10 +1,17 @@
+h1 {
+    color:black;
+    font-family: Source Sans Pro;
+    font-size:400%
+}
 
-#search-form, .form-control {
-    margin-bottom: 20px;
+p {
+    color:black;
+    font-family:Source Sans Pro;
+    font-size:150%;
 }
 .cover {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     display: inline-block;
     background-size: cover;
 }
@@ -17,7 +24,7 @@
     cursor: pointer;
 }
 
-#login, #loggedin {
+#loggedin {
     display: none;
 }
 
@@ -44,4 +51,20 @@
 
 img {
     max-width: 100%;
+}
+
+.section-heading{
+    background-color: rgba(0,0,0,0.75);
+    padding: 2em;
+    color: rgba(200,200,200,1);
+
+}
+
+.footer {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    background-color: black;
+    text-align: center;
 }

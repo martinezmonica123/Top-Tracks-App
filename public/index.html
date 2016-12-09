@@ -1,34 +1,32 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Top Tracks</title>
-      
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    
-      <!-- Custom Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'>
+    <head>
+        <title>Top Tracks</title>
 
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
-    <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
-    
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="js/index.js" defer></script>
-      
-  </head>
-    
-  <body>
-      
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="font-family: verdana;">
+
+        <!-- Custom CSS -->
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="js/index.js" defer></script>
+
+    </head>
+
+    <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" style="font-family: verdana;">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -37,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#">Top Tracks</a>
+                <a class="navbar-brand page-scroll" href="https://top-tracks.herokuapp.com">Top Tracks</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -48,42 +46,34 @@
                 </ul>
             </div>
         </div>
-    </nav>  
-      
-<!-- CHANGE LOGIN TO MODAL/POP-UP-->      
+    </nav>
+
+    <!-- CHANGE LOGIN TO MODAL/POP-UP-->
     <header id="login">
         <div style='padding-top:150px;'>
             <div class='box'>
-                <h1 style='color:black; font-family:Source Sans Pro; font-size:400%'>Welcome to Top Tracks!!!</h1>
+                <h1>Welcome to Top Tracks!!!</h1>
                 <hr>
-                <p style='color:black;font-family:Source Sans Pro;font-size:150%;'>Top Tracks let's you view your most popular Spotify songs and  recommends new songs based on your top track history!
-                <br><br>
-                Let's get started...</p>
+                <p>Top Tracks let's you view your most popular Spotify songs and  recommends new songs based on your top track history!
+                    <br><br>
+                    Let's get started...</p>
                 <div class="header-content-inner">
                     <a href="/login" id="spotify" class="btn btn-primary">Log in with Spotify</a>
                 </div>
             </div>
         </div>
-    </header>  
-      
-    <section class="bg-primary" id="results-intro">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Your Top Tracks!!!</h2>
-                    <hr class="light">
-                </div>
+    </header>
+
+    <section id="results-intro-1">
+        <div class="container" style="padding: 1em;">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading"> Your Top Tracks!</h2>
+            </div>
+            <div id="results">
             </div>
         </div>
     </section>
-      
-    <section id="results-intro-1">
-        <div class="container">
-            <div id="results">
-             </div>
-        </div>
-    </section>
-      
+
     <section class="bg-primary" id='rec-intro'>
         <div class="container">
             <div class="row">
@@ -95,62 +85,87 @@
                 </div>
             </div>
         </div>
-      </section>
-                
+    </section>
+
     <section id='rec-intro-results'>
-        <div class="container">    
+        <div class="container">
             <div id="recommendations"></div>
+            <div id="more_recommendations"></div>
+            <!--
+            <div>
+                <h2>Add your recommendations into a playlist!</h2>
+                <button id="make-playlist" class="'btn btn-default"> Create Playlist! </button>
+            </div>
+            -->
         </div>
     </section>
-       
+
+
+    <section class="bg-primary" id='more-rec-intro'>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 id='more-rec-intro-msg' class="section-heading"> Want More?</h2>
+                    <hr class="light">
+                    <button id='get-more-rec' class="btn btn-default">More Recommendations!</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <h4> Created by <a href="https://mtzmonica.com">Monica Martínez</a></h4>
+    </div>
+
     <script id="results-template" type="text/x-handlebars-template">
         {{#each items}}
-            <div class="col-sm-4 col-sm-6">
-                <div class="portfolio-box">
-                    <img src="{{album.images.0.url}}" class="img-responsive" alt="">
-                    <div class="portfolio-box-caption cover" data-album-id="{{id}}">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-name">
-                                {{this.name}}
-                            </div>
-                            <div class="project-category text-faded">
-                            By:     
-                                {{#each artists}}
-                                    {{this.name}} 
-                                {{/each}}
-                            </div>
+        <div class="col-sm-4 col-sm-6">
+            <div class="portfolio-box">
+                <img src="{{album.images.0.url}}" class="img-responsive" alt="">
+                <div class="portfolio-box-caption cover" data-album-id="{{id}}">
+                    <div class="portfolio-box-caption-content">
+                        <div class="project-name">
+                            {{this.name}}
+                        </div>
+                        <div class="project-category text-faded">
+                            By:
+                            {{#each artists}}
+                            {{this.name}}
+                            {{/each}}
                         </div>
                     </div>
                 </div>
-                <br>
             </div>
-        {{/each}}     
-    </script>
-      
-    <script id="recommendations-template" type="text/x-handlebars-template">
-        {{#each tracks}}
-            <div class="col-sm-4 col-sm-6">
-                <div class="portfolio-box">
-                    <img src="{{album.images.0.url}}" class="img-responsive" alt="">
-                    <div class="portfolio-box-caption cover" data-album-id="{{id}}">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-name">
-                                {{this.name}}
-                            </div>
-                            <div class="project-category text-faded">
-                            By:     
-                                {{#each artists}}
-                                    {{this.name}} 
-                                {{/each}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-            </div>
-        {{/each}}  
+            <br>
+        </div>
+        {{/each}}
     </script>
 
-  </body>
+    <script id="recommendations-template" type="text/x-handlebars-template">
+        {{#each tracks}}
+        <div class="col-sm-4 col-sm-6">
+            <div class="portfolio-box">
+                <img src="{{album.images.0.url}}" class="img-responsive" alt="">
+                <div class="portfolio-box-caption cover" data-album-id="{{id}}">
+                    <div class="portfolio-box-caption-content">
+                        <div class="project-name">
+                            {{this.name}}
+                        </div>
+                        <div class="project-category text-faded">
+                            By:
+                            {{#each artists}}
+                            {{this.name}}
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        {{/each}}
+    </script>
+
+
+    </body>
 </html>
 
