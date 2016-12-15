@@ -50,7 +50,7 @@
 
     <!-- CHANGE LOGIN TO MODAL/POP-UP-->
     <header id="login">
-        <div style='padding-top:150px;'>
+        <div style='padding-top:110px;'>
             <div class='box'>
                 <h1>Welcome to Top Tracks!!!</h1>
                 <hr>
@@ -64,54 +64,89 @@
         </div>
     </header>
 
-    <section id="results-intro-1">
-        <div class="container" style="padding: 1em;">
+    <section id="options">
+        <div class="container" style="padding:10em;">
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h2 class="section-heading"> Your Top Tracks!</h2>
-            </div>
-            <div id="results">
+                <h2 class="section-heading">
+                    Choose a time range:
+                    <hr>
+                    <button id='short-term' class="btn btn-default">4 Weeks</button>
+                    <button id='med-term' class="btn btn-default">6 Months</button>
+                    <button id='long-term' class="btn btn-default">Several Years</button>
+                </h2>
             </div>
         </div>
     </section>
-
-    <section class="bg-primary" id='rec-intro'>
-        <div class="container">
-            <div class="row">
+    <div id="contents">
+        <section id="results-intro-1">
+            <div class="container" style="padding:3em;">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 id='rec-intro-msg' class="section-heading"> Want Recommendations Based On Your Top Tracks?</h2>
-                    <h2 id='rec-results' class="section-heading"> Your Recommendations!</h2>
-                    <hr class="light">
-                    <button id='get-rec' class="btn btn-default">Get Recommendations!</button>
+                    <h2 class="section-heading">
+                        Your Top Tracks!
+                        <hr>
+                        <button class="btn btn-default" onclick="myFunction()"> Try another time range </button>
+                    </h2>
+                </div>
+                <div id="results"></div>
+            </div>
+        </section>
+
+        <section id='rec-intro'>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 id='rec-intro-msg' class="section-heading">
+                            Want Recommendations Based On Your Top Tracks?
+                            <hr>
+                            <button id='get-rec' class="btn btn-default">Get Recommendations!</button>
+                        </h2>
+                        <h2 id='rec-results' class="section-heading"> Your Recommendations!</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id='rec-intro-results'>
-        <div class="container">
-            <div id="recommendations"></div>
-            <div id="more_recommendations"></div>
-            <!--
-            <div>
-                <h2>Add your recommendations into a playlist!</h2>
-                <button id="make-playlist" class="'btn btn-default"> Create Playlist! </button>
+        <section id='rec-intro-results'>
+            <div class="container">
+                <div id="recommendations"></div>
+                <div id="more_recommendations"></div>
+                <!--
+                <div>
+                    <h2>Add your recommendations into a playlist!</h2>
+                    <button id="make-playlist" class="'btn btn-default"> Create Playlist! </button>
+                </div>
+                -->
             </div>
-            -->
-        </div>
-    </section>
+        </section>
 
 
-    <section class="bg-primary" id='more-rec-intro'>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 id='more-rec-intro-msg' class="section-heading"> Want More?</h2>
-                    <hr class="light">
-                    <button id='get-more-rec' class="btn btn-default">More Recommendations!</button>
+        <section id='more-rec-intro'>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 id='more-rec-intro-msg' class="section-heading"> Want More?
+                            <hr>
+                            <button id='get-more-rec' class="btn btn-default">More Recommendations!</button>
+                        </h2>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id='make-playlist'>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 id='more-rec-intro-msg' class="section-heading"> Create a Recommendations Playlist
+                            <hr>
+                            <button id='make-playlist' class="btn btn-default">create playlist!</button>
+                            <div id="playlist"></div>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <div class="footer">
         <h4> Created by <a href="https://mtzmonica.com">Monica Martínez</a></h4>
@@ -120,6 +155,7 @@
     <script id="results-template" type="text/x-handlebars-template">
         {{#each items}}
         <div class="col-sm-4 col-sm-6">
+            <br>
             <div class="portfolio-box">
                 <img src="{{album.images.0.url}}" class="img-responsive" alt="">
                 <div class="portfolio-box-caption cover" data-album-id="{{id}}">
@@ -136,9 +172,9 @@
                     </div>
                 </div>
             </div>
-            <br>
         </div>
         {{/each}}
+
     </script>
 
     <script id="recommendations-template" type="text/x-handlebars-template">
@@ -146,7 +182,7 @@
         <div class="col-sm-4 col-sm-6">
             <div class="portfolio-box">
                 <img src="{{album.images.0.url}}" class="img-responsive" alt="">
-                <div class="portfolio-box-caption cover" data-album-id="{{id}}">
+                <div class="portfolio-box-caption cover" data-album-uri="{{uri}}">
                     <div class="portfolio-box-caption-content">
                         <div class="project-name">
                             {{this.name}}
@@ -165,6 +201,15 @@
         {{/each}}
     </script>
 
+    <script id="playlist-template" type="text/x-handlebars-template">
+        <a href={{external_urls.spotify}}> Your Playlist! </a>
+    </script>
+
+    <script>
+        function myFunction() {
+            location.reload();
+        }
+    </script>
 
     </body>
 </html>

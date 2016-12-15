@@ -1,6 +1,9 @@
 var data, data_recs;
 var seeds = '', seeds2 = '';
 var user = '';
+var playlistID = '';
+var track_uris = '';
+var playlist_url ='';
 
 $(document).ready(function() {
 
@@ -70,6 +73,11 @@ $(document).ready(function() {
         recommendationsPlaceholder     = document.getElementById('recommendations'),
         moreRecommendationsPlaceholder = document.getElementById('more_recommendations');
 
+    var templateSourcePlay  = document.getElementById('playlist-template').innerHTML,
+        templatePlay        = Handlebars.compile(templateSourcePlay),
+        playlistPlaceholder = document.getElementById('playlist');
+
+
     var params = getHashParams();
 
     var access_token  = params.access_token,
@@ -81,6 +89,13 @@ $(document).ready(function() {
     } else {
         if (access_token) {
             $('#login').hide();
+            $('#contents').hide();
+            $('#options').show();
+
+            var shortBtn  = document.getElementById('short-term');
+            var medBtn    = document.getElementById('med-term');
+            var longBtn   = document.getElementById('long-term');
+            var timeRange = '';
 
             /* Get User ID*/
             $.ajax({
@@ -94,45 +109,138 @@ $(document).ready(function() {
             });
 
             /* Get Top Tracks */
-            $.ajax({
-                url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=12',
-                headers: {
-                'Authorization': 'Bearer ' + access_token
-                },
-                success: function (response) {
-                    data = response['items'];
-                    resultsPlaceholder.innerHTML = template(response);
-                }
-            }).done(function(){
+            if (shortBtn || medBtn || longBtn) {
+                if (shortBtn) {
+                    shortBtn.addEventListener('click', function () {
+                        timeRange = 'short_term';
+                        $('#options').hide();
+                        $('#contents').show();
+                        $.ajax({
+                            url: 'https://api.spotify.com/v1/me/top/tracks?time_range=' + timeRange + '&limit=12',
+                            headers: {
+                                'Authorization': 'Bearer ' + access_token
+                            },
+                            success: function (response) {
+                                data = response['items'];
+                                resultsPlaceholder.innerHTML = template(response);
+                            }
+                        }).done(function () {
 
-                // create two different seed strings for recommendations
-                var count = 1;
-                for (var key in data){
-                    if (data.hasOwnProperty(key)){
-                        if (count<5){
-                            seeds = seeds + data[key].id + ',';
-                            count++;
-                        } else if (count == 5){
-                            seeds = seeds + data[key].id;
-                            count++;
-                        } else if (count < 10){
-                            seeds2 = seeds2 + data[key].id + ',';
-                            count++;
-                        } else if (count == 10){
-                            seeds2 = seeds2 + data[key].id;
-                            count++;
-                        }
-                    }
+                            // create two different seed strings for recommendations
+                            var count = 1;
+                            for (var key in data) {
+                                if (data.hasOwnProperty(key)) {
+                                    if (count < 5) {
+                                        seeds = seeds + data[key].id + ',';
+                                        track_uris = track_uris + data[key].uri + ',';
+                                        count++;
+                                    } else if (count == 5) {
+                                        seeds = seeds + data[key].id;
+                                        track_uris = track_uris + data[key].uri;
+                                        count++;
+                                    } else if (count < 10) {
+                                        seeds2 = seeds2 + data[key].id + ',';
+                                        count++;
+                                    } else if (count == 10) {
+                                        seeds2 = seeds2 + data[key].id;
+                                        count++;
+                                    }
+                                }
+                            }
+                            console.log(track_uris);
+                        });
+                    });
+                    results.addEventListener('click', function (e) {
+                        var target = e.target;
+                        add_attributes(target);
+                    });
                 }
-            });
+                if (medBtn) {
+                    medBtn.addEventListener('click', function () {
+                        timeRange = 'medium_term';
+                        $('#options').hide();
+                        $('#contents').show();
+                        $.ajax({
+                            url: 'https://api.spotify.com/v1/me/top/tracks?time_range=' + timeRange + '&limit=12',
+                            headers: {
+                                'Authorization': 'Bearer ' + access_token
+                            },
+                            success: function (response) {
+                                data = response['items'];
+                                resultsPlaceholder.innerHTML = template(response);
+                            }
+                        }).done(function () {
+                            // create two different seed strings for recommendations
+                            var count = 1;
+                            for (var key in data) {
+                                if (data.hasOwnProperty(key)) {
+                                    if (count < 5) {
+                                        seeds = seeds + data[key].id + ',';
+                                        count++;
+                                    } else if (count == 5) {
+                                        seeds = seeds + data[key].id;
+                                        count++;
+                                    } else if (count < 10) {
+                                        seeds2 = seeds2 + data[key].id + ',';
+                                        count++;
+                                    } else if (count == 10) {
+                                        seeds2 = seeds2 + data[key].id;
+                                        count++;
+                                    }
+                                }
+                            }
+                        });
+                    });
+                }
+                if (longBtn) {
+                    longBtn.addEventListener('click', function () {
+                        timeRange = 'long_term';
+                        $('#options').hide();
+                        $('#contents').show();
+                        $.ajax({
+                            url: 'https://api.spotify.com/v1/me/top/tracks?time_range=' + timeRange + '&limit=12',
+                            headers: {
+                                'Authorization': 'Bearer ' + access_token
+                            },
+                            success: function (response) {
+                                data = response['items'];
+                                resultsPlaceholder.innerHTML = template(response);
+                            }
+                        }).done(function () {
+
+                            // create two different seed strings for recommendations
+                            var count = 1;
+                            for (var key in data) {
+                                if (data.hasOwnProperty(key)) {
+                                    if (count < 5) {
+                                        seeds = seeds + data[key].id + ',';
+                                        track_uris = track_uris + data[key].uri + ',';
+                                        count++;
+                                    } else if (count == 5) {
+                                        seeds = seeds + data[key].id;
+                                        track_uris = track_uris + data[key].uri;
+                                        count++;
+                                    } else if (count < 10) {
+                                        seeds2 = seeds2 + data[key].id + ',';
+                                        count++;
+                                    } else if (count == 10) {
+                                        seeds2 = seeds2 + data[key].id;
+                                        count++;
+                                    }
+                                }
+                            }
+                            console.log(track_uris);
+                        });
+                    });
+                }
+            }
 
             /** Site Buttons + Functions **/
-
             var recBtn = document.getElementById('get-rec');
             var moreRecBtn = document.getElementById('get-more-rec');
+            var makePlaylistBtn = document.getElementById('make-playlist');
 
-            //var makePlaylistBtn = document.getElementById('make-playlist');
-
+            /* Get Recommendation Tracks */
             if (recBtn) {
                 recBtn.addEventListener('click', function () {
                     /* Get Recommendations */
@@ -142,7 +250,8 @@ $(document).ready(function() {
                             'Authorization': 'Bearer ' + access_token
                         },
                         success: function (response) {
-                            data_recs = response['albums'];
+                            data_recs = response['items'];
+                            console.log(data_recs);
                             recommendationsPlaceholder.innerHTML = templateR(response);
                             $('#rec-intro-msg').hide();
                             $('#get-rec').hide();
@@ -151,12 +260,7 @@ $(document).ready(function() {
                             $('#more-rec-intro').show();
                             $('#more-rec-intro-msg').show();
                         }
-                    })
-                }, false);
-
-                results.addEventListener('click', function (e) {
-                    var target = e.target;
-                    add_attributes(target);
+                    });
                 });
 
 
@@ -165,6 +269,8 @@ $(document).ready(function() {
                     add_attributes(target);
                 });
             }
+
+            /* Get More Recommendation Tracks */
             if (moreRecBtn) {
                 moreRecBtn.addEventListener('click', function () {
                     /* Get More Recommendations */
@@ -174,7 +280,7 @@ $(document).ready(function() {
                             'Authorization': 'Bearer ' + access_token
                         },
                         success: function (response) {
-                            data_recs = response['albums'];
+                            //data_recs = response['albums'];
                             moreRecommendationsPlaceholder.innerHTML = templateR(response);
 
                             $('#more-rec-intro').hide();
@@ -183,7 +289,7 @@ $(document).ready(function() {
                             $('#more-rec-intro-results').show();
 
                         }
-                    })
+                    });
                 }, false);
 
                 more_recommendations.addEventListener('click', function (e) {
@@ -191,29 +297,60 @@ $(document).ready(function() {
                     add_attributes(target);
                 });
             }
-            /*if (makePlaylistBtn) {
-             makePlaylistBtn.addEventListener('click', function (e){
+
+            if (makePlaylistBtn) {
+                makePlaylistBtn.addEventListener('click', function (){
                     // Create a Playlist
                     $.ajax({
-                        url: 'https://api.spotify.com/v1/users/'+ user +'/playlists',
+                        url: 'https://api.spotify.com/v1/users/' + user + '/playlists',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': application/json,
+                            'Content-Type': 'application/json'
                         },
                         data: {
-                            name: 'Top-Tracks-App Recommendations',
+                            "name": "Top-Tracks-App-Recommendations"
+                        },
                         success: function (response) {
-                            // save the playlist_id
-                            // Add to created playlist
-                                // Return the playlist just created
-
+                            var temp = response['items'][0];
+                            playlistID = temp['id'];
+                            console.log('got new playlist id');
                         }
-                    })
+                    }).done(function(){
+
+                            // add tracks to playlist
+                            $.ajax({
+                                url: 'https://api.spotify.com/v1/users/' + user
+                                        + '/playlists/' + playlistID
+                                        +'/tracks?uris='+ track_uris,
+                                headers: {
+                                    'Authorization': 'Bearer ' + access_token,
+                                    'Content-Type': 'application/json'
+                                },
+                                success: function (response) {
+                                    console.log('added tracks');
+                                    //get link to playlist
+                                    $.ajax({
+                                        url: 'https://api.spotify.com/v1/users/' + user
+                                        + '/playlists' + playlistID,
+                                        headers: {
+                                            'Authorization': 'Bearer ' + access_token
+                                        },
+                                        success: function (response) {
+                                            playlist_url = response['external_urls']['spotify'];
+                                            playlistPlaceholder.innerHTML = templatePlay(response);
+                                        }
+                                    });
+                                }
+                            });
+                        })
                 }, false);
-            }*/
+            }
 
         } else {
             // render initial screen
+            $('#contents').hide();
+
+            /*
             $('#results-intro-msg').hide();
             $('#results-intro-1').hide();
 
@@ -221,7 +358,7 @@ $(document).ready(function() {
             $('#rec-intro-results').hide();
 
             $('#more-rec-intro').hide();
-            $('#more-rec-intro-results').hide();
+            $('#more-rec-intro-results').hide();*/
         }
     }
 });
