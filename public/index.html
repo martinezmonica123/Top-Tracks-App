@@ -77,6 +77,7 @@
             </div>
         </div>
     </section>
+
     <div id="contents">
         <section id="results-intro-1">
             <div class="container" style="padding:3em;">
@@ -137,10 +138,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 id='more-rec-intro-msg' class="section-heading"> Create a Recommendations Playlist
+                        <h2 id='playlist-intro' class="section-heading"> Create a Recommendations Playlist
                             <hr>
                             <button id='make-playlist' class="btn btn-default">create playlist!</button>
-                            <div id="playlist"></div>
+                        </h2>
+                        <h2 id='playlist-msg' class="section-heading"> Your Playlist
+                            <hr>
+                            <iframe id="playlist-iframe" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                            </h2>
+                        </div>
                         </h2>
                     </div>
                 </div>
@@ -182,7 +188,7 @@
         <div class="col-sm-4 col-sm-6">
             <div class="portfolio-box">
                 <img src="{{album.images.0.url}}" class="img-responsive" alt="">
-                <div class="portfolio-box-caption cover" data-album-uri="{{uri}}">
+                <div class="portfolio-box-caption cover" data-album-id="{{id}}">
                     <div class="portfolio-box-caption-content">
                         <div class="project-name">
                             {{this.name}}
@@ -199,10 +205,6 @@
             <br>
         </div>
         {{/each}}
-    </script>
-
-    <script id="playlist-template" type="text/x-handlebars-template">
-        <a href={{external_urls.spotify}}> Your Playlist! </a>
     </script>
 
     <script>
